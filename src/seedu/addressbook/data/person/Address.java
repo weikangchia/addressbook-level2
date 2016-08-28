@@ -1,5 +1,9 @@
 package seedu.addressbook.data.person;
 
+import seedu.addressbook.data.address.Block;
+import seedu.addressbook.data.address.PostalCode;
+import seedu.addressbook.data.address.Street;
+import seedu.addressbook.data.address.Unit;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -8,13 +12,26 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, Serangoon North Ave 4, #01-123, 550123";
+    public static final String EXAMPLE = Block.EXAMPLE + ", " 
+                                         + Street.EXAMPLE + ", " 
+                                         + Unit.EXAMPLE + ", " 
+                                         + PostalCode.EXAMPLE;
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
             "Person addresses need to be in this format: a/BLOCK, STREET, UNIT, POSTAL_CODE";
     public static final String ADDRESS_VALIDATION_REGEX =
             "(\\d+[A-Z,a-z]?)(,)(.+)(,)(#| #)(\\d+-\\d+)(,)( \\d+|\\d+)";
+    
+    private static final int ADDRESS_BLOCK_INDEX = 0;
+    private static final int ADDRESS_STREET_INDEX = 1;
+    private static final int ADDRESS_UNIT_INDEX = 2;
+    private static final int ADDRESS_POSTAL_CODE_INDEX = 3;
 
     public final String value;
+    public final Block block;
+    public final Street street;
+    public final Unit unit;
+    public final PostalCode postalCode;
+
     private boolean isPrivate;
 
     /**
@@ -28,6 +45,12 @@ public class Address {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = address;
+        
+        String[] addressArray = value.split(", ");
+        this.block = new Block(addressArray[ADDRESS_BLOCK_INDEX]);
+        this.street = new Street(addressArray[ADDRESS_STREET_INDEX]);
+        this.unit = new Unit(addressArray[ADDRESS_UNIT_INDEX]);
+        this.postalCode = new PostalCode(addressArray[ADDRESS_POSTAL_CODE_INDEX]);
     }
 
     /**
