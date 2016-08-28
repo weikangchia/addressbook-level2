@@ -1,16 +1,25 @@
 package seedu.addressbook.storage;
 
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 
 /**
  * Represents the file used to store address book data.
@@ -34,7 +43,7 @@ public class StorageFile {
     }
 
     /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
+     * Signals that some error has occurred while trying to convert and read/write data between the application
      * and the storage file.
      */
     public static class StorageOperationException extends Exception {
@@ -42,7 +51,7 @@ public class StorageFile {
             super(message);
         }
     }
-
+    
     private final JAXBContext jaxbContext;
 
     public final Path path;
@@ -77,6 +86,16 @@ public class StorageFile {
     private static boolean isValidPath(Path filePath) {
         return filePath.toString().endsWith(".txt");
     }
+    
+    /**
+     * Checks if file exists
+     * @throws StorageOperationException
+     */
+    public void checkFileExist() throws StorageOperationException {
+        if (!Files.exists(path)) {
+            throw new StorageOperationException(path + " has been deleted");
+        }
+    }
 
     /**
      * Saves all data to this storage file.
@@ -84,7 +103,6 @@ public class StorageFile {
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
     public void save(AddressBook addressBook) throws StorageOperationException {
-
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
