@@ -89,6 +89,7 @@ public class StorageFile {
     
     /**
      * Checks if file exists
+     * 
      * @throws StorageOperationException
      */
     public void checkFileExist() throws StorageOperationException {
@@ -99,7 +100,7 @@ public class StorageFile {
     
     /**
      * Saves all data to this storage file.
-     *
+     * 
      * @throws StorageOperationException if there were errors converting and/or 
      * file was deleted during while program is running and/or writing data to file.
      */
@@ -156,9 +157,7 @@ public class StorageFile {
 
         // create empty file if not found
         } catch (FileNotFoundException fnfe) {
-            final AddressBook empty = new AddressBook();
-            write(empty);
-            return empty;
+            return createEmptyStorageFile();
 
         // other errors
         } catch (IOException ioe) {
@@ -168,6 +167,18 @@ public class StorageFile {
         } catch (IllegalValueException ive) {
             throw new StorageOperationException("File contains illegal data values; data type constraints not met");
         }
+    }
+
+    /**
+     * Create an empty storage file
+     * 
+     * @return empty addressbook
+     * @throws StorageOperationException
+     */
+    private AddressBook createEmptyStorageFile() throws StorageOperationException {
+        final AddressBook empty = new AddressBook();
+        write(empty);
+        return empty;
     }
 
     public String getPath() {
