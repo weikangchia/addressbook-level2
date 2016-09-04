@@ -65,11 +65,11 @@ public class Name {
      * Returns true of the other name is very similar to this name.
      * Two names are considered similar if they are equal
      */
-    public Object isSimilar(Name other) {
-        if(other == null) {
-            return false;
+    public boolean isSimilar(Name other) {
+        if (other != null && fullName.equalsIgnoreCase(other.fullName)) {
+            return true;
         }
-        return true;
+        return false;
     }
 
 }
