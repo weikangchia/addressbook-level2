@@ -62,8 +62,9 @@ public class Name {
     }
 
     /**
-     * Returns true of the other name is very similar to this name.
-     * Two names are considered similar if they are equal, 
+     * Returns true of the other name is very similar to this name. Two names are considered similar
+     * if they are equal, equal but different case, equal but different order, 
+     * names are subset or superset of each other.
      */
     public boolean isSimilar(Name other) {
         if (other == null) {
