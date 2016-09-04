@@ -14,5 +14,6 @@ public class NameTest {
         
         assertEquals(true, name1.isSimilar(name2));
         
+        assertEquals(false, name1.isSimilar(null));
     }
 }
