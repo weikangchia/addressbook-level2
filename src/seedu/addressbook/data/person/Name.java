@@ -63,13 +63,30 @@ public class Name {
 
     /**
      * Returns true of the other name is very similar to this name.
-     * Two names are considered similar if they are equal
+     * Two names are considered similar if they are equal, 
      */
     public boolean isSimilar(Name other) {
-        if (other != null && fullName.equalsIgnoreCase(other.fullName)) {
+        if (other == null) {
+            return false;
+        }
+
+        if (fullName.equalsIgnoreCase(other.fullName)) {
             return true;
         }
-        return false;
+
+        String[] currNameSplit = fullName.toLowerCase().split(" ");
+        String[] otherNameSplit = other.fullName.toLowerCase().split(" ");
+
+        Arrays.sort(currNameSplit);
+        Arrays.sort(otherNameSplit);
+
+        for (int i = 0; i < currNameSplit.length; i++) {
+            if (!currNameSplit[i].equals(otherNameSplit[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
