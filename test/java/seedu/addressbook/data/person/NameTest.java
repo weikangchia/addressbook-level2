@@ -55,5 +55,10 @@ public class NameTest {
         name2 = new Name("John Smith");
 
         assertEquals(true, name1.isSimilar(name2));
+        
+        name1 = new Name("John Smith");
+        name2 = new Name("John K Smith");
+
+        assertEquals(true, name1.isSimilar(name2));
     }
 }
