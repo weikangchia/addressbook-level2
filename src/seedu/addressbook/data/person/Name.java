@@ -70,19 +70,11 @@ public class Name {
             return false;
         }
 
-        final String[] currNameSplit = fullName.toLowerCase().split(" ");
-        final String[] otherNameSplit = other.fullName.toLowerCase().split(" ");
+        final List<String> currNameSplit = Arrays.asList(fullName.toLowerCase().split(" "));
+        final List<String> otherNameSplit = Arrays.asList(other.fullName.toLowerCase().split(" "));
 
-        Arrays.sort(currNameSplit);
-        Arrays.sort(otherNameSplit);
-
-        for (int i = 0; i < Math.min(currNameSplit.length, otherNameSplit.length); i++) {
-            if (!currNameSplit[i].equals(otherNameSplit[i])) {
-                return false;
-            }
-        }
-
-        return true;
+        return currNameSplit.containsAll(otherNameSplit)
+                || otherNameSplit.containsAll(currNameSplit);
     }
 
 }
