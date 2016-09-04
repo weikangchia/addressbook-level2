@@ -70,12 +70,8 @@ public class Name {
             return false;
         }
 
-        if (fullName.equalsIgnoreCase(other.fullName)) {
-            return true;
-        }
-
-        String[] currNameSplit = fullName.toLowerCase().split(" ");
-        String[] otherNameSplit = other.fullName.toLowerCase().split(" ");
+        final String[] currNameSplit = fullName.toLowerCase().split(" ");
+        final String[] otherNameSplit = other.fullName.toLowerCase().split(" ");
 
         Arrays.sort(currNameSplit);
         Arrays.sort(otherNameSplit);
