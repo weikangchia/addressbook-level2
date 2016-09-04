@@ -80,7 +80,7 @@ public class Name {
         Arrays.sort(currNameSplit);
         Arrays.sort(otherNameSplit);
 
-        for (int i = 0; i < currNameSplit.length; i++) {
+        for (int i = 0; i < Math.min(currNameSplit.length, otherNameSplit.length); i++) {
             if (!currNameSplit[i].equals(otherNameSplit[i])) {
                 return false;
             }
